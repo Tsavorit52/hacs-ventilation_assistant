@@ -1,0 +1,14 @@
+{
+  "title": "Ventilation Assistant",
+  "entity": {
+    "name": "Window ventilation"
+  },
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure Ventilation Assistant",
+        "description": "Choose the sensors for inside/outside temperature, humidity, and CO2."
+      }
+    }
+  }
+}

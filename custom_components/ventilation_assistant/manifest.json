@@ -1,0 +1,11 @@
+{
+  "domain": "ventilation_assistant",
+  "name": "Ventilation Assistant",
+  "version": "1.0.0",
+  "documentation": "https://github.com/your-github-handle/ventilation_assistant",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@your-github-handle"],
+  "config_flow": true,
+  "iot_class": "local_polling"
+}
