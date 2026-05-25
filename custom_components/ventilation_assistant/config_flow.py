@@ -38,6 +38,7 @@ CONFIG_SCHEMA = vol.Schema(
             {
                 "entity": {
                     "domain": "sensor",
+                    "device_class": "carbon_dioxide",
                 }
             }
         ),
