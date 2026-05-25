@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure Ventilation Assistant",
+        "description": "Select the sensors for inside/outside temperature, humidity, and CO2.",
+        "data": {
+          "inside_temperature": "Inside Temperature",
+          "inside_humidity": "Inside Humidity",
+          "inside_co2": "Inside CO2",
+          "outside_temperature": "Outside Temperature",
+          "outside_humidity": "Outside Humidity"
+        },
+        "data_description": {
+          "inside_temperature": "Temperature sensor inside your home",
+          "inside_humidity": "Humidity sensor inside your home",
+          "inside_co2": "CO2 concentration sensor inside your home (PPM)",
+          "outside_temperature": "Temperature sensor outside your home",
+          "outside_humidity": "Humidity sensor outside your home"
+        }
+      }
+    }
+  }
+}
