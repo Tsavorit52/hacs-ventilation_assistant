@@ -1,0 +1,9 @@
+{
+  "name": "Ventilation Assistant",
+  "content_in_root": false,
+  "domains": ["binary_sensor"],
+  "country": "US",
+  "documentation": "https://github.com/Tsavorit52/hacs-ventilation_assistant",
+  "render_readme": true,
+  "zip_release": false
+}
