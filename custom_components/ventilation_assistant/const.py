@@ -13,7 +13,9 @@ CONF_WINTER_START = "winter_start_month"
 CONF_WINTER_END = "winter_end_month"
 CONF_SUMMER_START = "summer_start_month"
 CONF_SUMMER_END = "summer_end_month"
+CONF_SUMMER_MIN_TEMP = "summer_min_temp"
 
 DEFAULT_CO2_THRESHOLD = 1200
+DEFAULT_SUMMER_MIN_TEMP = 22
 
 PLATFORMS = ["binary_sensor", "sensor"]

@@ -45,6 +45,7 @@ The integration creates two entities per configured instance.
 
 - You can set a custom **CO2 threshold** (default 1200 ppm) in the integration setup. Recommended default: 1200 ppm (opens windows when CO2 is high).
 - You can customize which months are considered **winter** and **summer**. The setup form exposes month numbers (1-12) for winter start/end and summer start/end so the season detection matches your local climate.
+- You can set a **summer minimum temperature** (default 22°C). When inside temperature reaches this level during summer, windows are no longer opened for cooling and are only recommended if CO2 levels are high.
 
 ## Entities Created
 
@@ -89,6 +90,7 @@ Focus: Mold + CO2 with minimal airing time
 Focus: Temperature control without overheating
 
 - **Heat Block:** If outside temp > inside temp → **Keep windows closed** (to avoid warming the home)
+- **Summer minimum temperature:** If the inside temperature reaches the configured summer minimum (default 22°C), windows are only opened for CO2 release and not for cooling.
 - **Mold + Drying:** If inside humidity is high AND outside is drier AND outside temp is acceptable → **Open windows**
 - **CO2 Management:** If CO2 is high AND outside is not hotter AND outside humidity is reasonable → **Open windows**
 - **Cooling Opportunity:** If outside is cooler AND outside humidity is acceptable → **Open windows**

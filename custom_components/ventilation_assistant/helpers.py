@@ -64,6 +64,7 @@ def calculate_window_recommendation(
     winter_end: int = 3,
     summer_start: int = 6,
     summer_end: int = 9,
+    summer_min_temp: float = 22.0,
 ) -> tuple[bool, dict[str, float | str | None]]:
     """Return whether windows should be opened and numeric state attributes."""
     values = {
@@ -109,6 +110,13 @@ def calculate_window_recommendation(
 
     if season == "summer" and outside_hotter:
         values["reason"] = "outside warmer than inside in summer"
+        return False, values
+
+    if season == "summer" and inside_temp >= summer_min_temp:
+        if co2_condition and outside_temp <= inside_temp + 2 and (outside_ah is None or outside_ah <= inside_ah + 5):
+            values["reason"] = "reduce indoor CO2 with outside air"
+            return True, values
+        values["reason"] = "outside too warm for cooling, only CO2 release recommended"
         return False, values
 
     if mold_condition and outside_dryer and outside_temp <= inside_temp + 2:

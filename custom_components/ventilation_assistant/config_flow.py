@@ -7,11 +7,17 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 
 from .const import (
+    CONF_CO2_THRESHOLD,
     CONF_INSIDE_CO2,
     CONF_INSIDE_HUMIDITY,
     CONF_INSIDE_TEMPERATURE,
     CONF_OUTSIDE_HUMIDITY,
     CONF_OUTSIDE_TEMPERATURE,
+    CONF_SUMMER_END,
+    CONF_SUMMER_MIN_TEMP,
+    CONF_SUMMER_START,
+    CONF_WINTER_END,
+    CONF_WINTER_START,
     DOMAIN,
 )
 
@@ -70,8 +76,11 @@ CONFIG_SCHEMA = vol.Schema(
         vol.Optional("summer_start_month", default=6): selector.selector({
             "number": {"min": 1, "max": 12, "step": 1}
         }),
-        vol.Optional("summer_end_month", default=9): selector.selector({
+        vol.Optional(CONF_SUMMER_END, default=9): selector.selector({
             "number": {"min": 1, "max": 12, "step": 1}
+        }),
+        vol.Optional(CONF_SUMMER_MIN_TEMP, default=22): selector.selector({
+            "number": {"min": 10, "max": 40, "step": 1}
         }),
     }
 )

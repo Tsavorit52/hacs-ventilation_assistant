@@ -71,7 +71,9 @@ class VentilationAssistantReasonSensor(SensorEntity):
             CONF_WINTER_END,
             CONF_SUMMER_START,
             CONF_SUMMER_END,
+            CONF_SUMMER_MIN_TEMP,
             DEFAULT_CO2_THRESHOLD,
+            DEFAULT_SUMMER_MIN_TEMP,
         )
 
         co2_thresh = self._entry.data.get(CONF_CO2_THRESHOLD, DEFAULT_CO2_THRESHOLD)
@@ -79,6 +81,9 @@ class VentilationAssistantReasonSensor(SensorEntity):
         winter_end = int(self._entry.data.get(CONF_WINTER_END, 3))
         summer_start = int(self._entry.data.get(CONF_SUMMER_START, 6))
         summer_end = int(self._entry.data.get(CONF_SUMMER_END, 9))
+        summer_min_temp = int(
+            self._entry.data.get(CONF_SUMMER_MIN_TEMP, DEFAULT_SUMMER_MIN_TEMP)
+        )
 
         _, attributes = calculate_window_recommendation(
             inside_temp=inside_temp,
@@ -92,6 +97,7 @@ class VentilationAssistantReasonSensor(SensorEntity):
             winter_end=winter_end,
             summer_start=summer_start,
             summer_end=summer_end,
+            summer_min_temp=summer_min_temp,
         )
 
         self._attr_native_value = attributes.get("reason", "Unknown")
