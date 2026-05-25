@@ -112,11 +112,11 @@ def calculate_window_recommendation(
         values["reason"] = "outside warmer than inside in summer"
         return False, values
 
-    if season == "summer" and inside_temp >= summer_min_temp:
+    if season == "summer" and inside_temp <= summer_min_temp:
         if co2_condition and outside_temp <= inside_temp + 2 and (outside_ah is None or outside_ah <= inside_ah + 5):
             values["reason"] = "reduce indoor CO2 with outside air"
             return True, values
-        values["reason"] = "outside too warm for cooling, only CO2 release recommended"
+        values["reason"] = "inside temp is at summer minimum, only CO2 release recommended"
         return False, values
 
     if mold_condition and outside_dryer and outside_temp <= inside_temp + 2:
