@@ -8,4 +8,4 @@ CONF_INSIDE_CO2 = "inside_co2"
 
 DEFAULT_NAME = "Ventilation Assistant"
 
-PLATFORMS = ["binary_sensor"]
+PLATFORMS = ["binary_sensor", "sensor"]

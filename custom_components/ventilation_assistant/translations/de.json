@@ -1,0 +1,37 @@
+{
+  "title": "Ventilation Assistant",
+  "entity": {
+    "binary_sensor": {
+      "open_windows": {
+        "name": "Fenster Lüftung"
+      }
+    },
+    "sensor": {
+      "ventilation_reason": {
+        "name": "Grund für Lüftung"
+      }
+    }
+  },
+  "config": {
+    "step": {
+      "user": {
+        "title": "Ventilation Assistant einrichten",
+        "description": "Wähle die Sensoren für Innen-/Aussentemperatur, Feuchte und CO2.",
+        "data": {
+          "inside_temperature": "Innentemperatur",
+          "inside_humidity": "Innenfeuchte",
+          "inside_co2": "Innen CO2 (ppm)",
+          "outside_temperature": "Aussentemperatur",
+          "outside_humidity": "Aussenfeuchte"
+        },
+        "data_description": {
+          "inside_temperature": "Temperatursensor in deinem Haus",
+          "inside_humidity": "Feuchtigkeitssensor in deinem Haus",
+          "inside_co2": "CO2-Sensor in deinem Haus (in ppm)",
+          "outside_temperature": "Temperatursensor draussen",
+          "outside_humidity": "Feuchtigkeitssensor draussen"
+        }
+      }
+    }
+  }
+}

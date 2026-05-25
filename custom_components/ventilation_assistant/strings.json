@@ -20,5 +20,17 @@
         }
       }
     }
+  },
+  "entity": {
+    "sensor": {
+      "ventilation_reason": {
+        "name": "Ventilation Decision Reason"
+      }
+    },
+    "binary_sensor": {
+      "open_windows": {
+        "name": "Window Ventilation"
+      }
+    }
   }
 }
