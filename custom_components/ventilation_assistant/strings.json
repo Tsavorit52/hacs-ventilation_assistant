@@ -10,6 +10,12 @@
           "inside_co2": "Inside CO2",
           "outside_temperature": "Outside Temperature",
           "outside_humidity": "Outside Humidity"
+        ,
+          "co2_threshold": "CO2 Threshold (ppm)",
+          "winter_start_month": "Winter start month",
+          "winter_end_month": "Winter end month",
+          "summer_start_month": "Summer start month",
+          "summer_end_month": "Summer end month"
         },
         "data_description": {
           "inside_temperature": "Temperature sensor inside your home",
@@ -17,6 +23,12 @@
           "inside_co2": "CO2 concentration sensor inside your home (PPM)",
           "outside_temperature": "Temperature sensor outside your home",
           "outside_humidity": "Humidity sensor outside your home"
+        ,
+          "co2_threshold": "Recommended default: 1200 ppm",
+          "winter_start_month": "Month number where winter period starts (1-12)",
+          "winter_end_month": "Month number where winter period ends (1-12)",
+          "summer_start_month": "Month number where summer period starts (1-12)",
+          "summer_end_month": "Month number where summer period ends (1-12)"
         }
       }
     }

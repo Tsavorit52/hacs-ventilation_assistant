@@ -23,12 +23,31 @@ def absolute_humidity(temp_celsius: float, relative_humidity: float) -> float | 
     return 216.7 * (vapor_pressure / (temp_celsius + 273.15))
 
 
-def season_label(now: datetime, outside_temp: float | None) -> str:
-    """Return season label for ventilation logic."""
+def month_in_range(month: int, start: int, end: int) -> bool:
+    """Return True if month is in the inclusive range start..end handling wrap-around."""
+    if start <= end:
+        return start <= month <= end
+    # wrap-around (e.g., start=11, end=3)
+    return month >= start or month <= end
+
+
+def season_label(
+    now: datetime,
+    outside_temp: float | None,
+    winter_start: int = 12,
+    winter_end: int = 3,
+    summer_start: int = 6,
+    summer_end: int = 9,
+) -> str:
+    """Return season label for ventilation logic, using configurable month ranges."""
     month = now.month
-    if month in (12, 1, 2, 3) or (outside_temp is not None and outside_temp <= 10):
+    if month_in_range(month, winter_start, winter_end) or (
+        outside_temp is not None and outside_temp <= 10
+    ):
         return "winter"
-    if month in (6, 7, 8, 9) or (outside_temp is not None and outside_temp >= 20):
+    if month_in_range(month, summer_start, summer_end) or (
+        outside_temp is not None and outside_temp >= 20
+    ):
         return "summer"
     return "transition"
 
@@ -40,10 +59,15 @@ def calculate_window_recommendation(
     outside_rh: float | None,
     inside_co2: float | None,
     now: datetime,
+    co2_threshold: int = 1200,
+    winter_start: int = 12,
+    winter_end: int = 3,
+    summer_start: int = 6,
+    summer_end: int = 9,
 ) -> tuple[bool, dict[str, float | str | None]]:
     """Return whether windows should be opened and numeric state attributes."""
     values = {
-        "season": season_label(now, outside_temp),
+        "season": season_label(now, outside_temp, winter_start, winter_end, summer_start, summer_end),
         "inside_temperature": inside_temp,
         "outside_temperature": outside_temp,
         "inside_humidity": inside_rh,
@@ -65,9 +89,8 @@ def calculate_window_recommendation(
 
     season = values["season"]
     temp_delta = outside_temp - inside_temp
-
     mold_condition = inside_ah is not None and inside_ah >= 9.0
-    co2_condition = inside_co2 >= 1200
+    co2_condition = inside_co2 is not None and inside_co2 >= co2_threshold
     outside_cooler = temp_delta < -0.5
     outside_hotter = temp_delta > 1.0
     outside_dryer = outside_ah is not None and inside_ah is not None and outside_ah + 2 <= inside_ah

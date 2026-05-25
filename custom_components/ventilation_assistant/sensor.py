@@ -65,6 +65,21 @@ class VentilationAssistantReasonSensor(SensorEntity):
         outside_temp = self._get_numeric_state(self._entry.data[CONF_OUTSIDE_TEMPERATURE])
         outside_humidity = self._get_numeric_state(self._entry.data[CONF_OUTSIDE_HUMIDITY])
 
+        from .const import (
+            CONF_CO2_THRESHOLD,
+            CONF_WINTER_START,
+            CONF_WINTER_END,
+            CONF_SUMMER_START,
+            CONF_SUMMER_END,
+            DEFAULT_CO2_THRESHOLD,
+        )
+
+        co2_thresh = self._entry.data.get(CONF_CO2_THRESHOLD, DEFAULT_CO2_THRESHOLD)
+        winter_start = int(self._entry.data.get(CONF_WINTER_START, 12))
+        winter_end = int(self._entry.data.get(CONF_WINTER_END, 3))
+        summer_start = int(self._entry.data.get(CONF_SUMMER_START, 6))
+        summer_end = int(self._entry.data.get(CONF_SUMMER_END, 9))
+
         _, attributes = calculate_window_recommendation(
             inside_temp=inside_temp,
             outside_temp=outside_temp,
@@ -72,6 +87,11 @@ class VentilationAssistantReasonSensor(SensorEntity):
             outside_rh=outside_humidity,
             inside_co2=inside_co2,
             now=datetime.now(),
+            co2_threshold=co2_thresh,
+            winter_start=winter_start,
+            winter_end=winter_end,
+            summer_start=summer_start,
+            summer_end=summer_end,
         )
 
         self._attr_native_value = attributes.get("reason", "Unknown")

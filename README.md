@@ -41,6 +41,11 @@ You will need to select the following entities:
 
 The integration creates two entities per configured instance.
 
+### Customizable settings during setup
+
+- You can set a custom **CO2 threshold** (default 1200 ppm) in the integration setup. Recommended default: 1200 ppm (opens windows when CO2 is high).
+- You can customize which months are considered **winter** and **summer**. The setup form exposes month numbers (1-12) for winter start/end and summer start/end so the season detection matches your local climate.
+
 ## Entities Created
 
 The integration creates two entities:

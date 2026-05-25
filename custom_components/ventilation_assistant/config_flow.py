@@ -57,6 +57,21 @@ CONFIG_SCHEMA = vol.Schema(
                 }
             }
         ),
+        vol.Optional("co2_threshold", default=1200): selector.selector({
+            "number": {"min": 400, "max": 5000, "step": 50}
+        }),
+        vol.Optional("winter_start_month", default=12): selector.selector({
+            "number": {"min": 1, "max": 12, "step": 1}
+        }),
+        vol.Optional("winter_end_month", default=3): selector.selector({
+            "number": {"min": 1, "max": 12, "step": 1}
+        }),
+        vol.Optional("summer_start_month", default=6): selector.selector({
+            "number": {"min": 1, "max": 12, "step": 1}
+        }),
+        vol.Optional("summer_end_month", default=9): selector.selector({
+            "number": {"min": 1, "max": 12, "step": 1}
+        }),
     }
 )
 
