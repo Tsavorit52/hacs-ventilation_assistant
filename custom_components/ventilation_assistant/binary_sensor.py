@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
@@ -19,7 +19,11 @@ from .const import (
     CONF_INSIDE_TEMPERATURE,
     CONF_OUTSIDE_HUMIDITY,
     CONF_OUTSIDE_TEMPERATURE,
+    CONF_SUMMER_MIN_TEMP,
+    DEFAULT_CO2_THRESHOLD,
+    DEFAULT_SUMMER_MIN_TEMP,
     DOMAIN,
+    STATE_CHANGE_COOLDOWN_SECONDS,
 )
 from .helpers import calculate_window_recommendation
 
@@ -39,6 +43,7 @@ class VentilationAssistantBinarySensor(BinarySensorEntity):
         self._attr_is_on = False
         self._attr_extra_state_attributes = {}
         self._listener_remove = None
+        self._last_state_change: datetime | None = None
 
     async def async_added_to_hass(self) -> None:
         sensor_ids = [
@@ -104,6 +109,25 @@ class VentilationAssistantBinarySensor(BinarySensorEntity):
             summer_start=summer_start,
             summer_end=summer_end,
             summer_min_temp=summer_min_temp,
+        )
+
+        if self._attr_is_on != open_windows:
+            now = datetime.now()
+            if self._last_state_change is not None and (
+                now - self._last_state_change
+            ).total_seconds() < STATE_CHANGE_COOLDOWN_SECONDS:
+                attributes["reason"] = "recent state change cooldown prevents rapid flip"
+                attributes["next_recommended_state"] = (
+                    "open" if open_windows else "closed"
+                )
+                open_windows = self._attr_is_on
+            else:
+                self._last_state_change = now
+
+        attributes["last_state_change"] = (
+            self._last_state_change.isoformat()
+            if self._last_state_change is not None
+            else None
         )
 
         self._attr_is_on = open_windows

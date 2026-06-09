@@ -90,14 +90,14 @@ def calculate_window_recommendation(
 
     season = values["season"]
     temp_delta = outside_temp - inside_temp
-    mold_condition = inside_ah is not None and inside_ah >= 9.0
+    mold_risk_condition = inside_ah is not None and inside_ah >= 9.0
     co2_condition = inside_co2 is not None and inside_co2 >= co2_threshold
     outside_cooler = temp_delta < -0.5
     outside_hotter = temp_delta > 1.0
     outside_dryer = outside_ah is not None and inside_ah is not None and outside_ah + 2 <= inside_ah
 
     if season == "winter":
-        if not (mold_condition or co2_condition):
+        if not (mold_risk_condition or co2_condition):
             values["reason"] = "no winter mold or CO2 need"
             return False, values
 
@@ -119,7 +119,7 @@ def calculate_window_recommendation(
         values["reason"] = "inside temp is at summer minimum, only CO2 release recommended"
         return False, values
 
-    if mold_condition and outside_dryer and outside_temp <= inside_temp + 2:
+    if mold_risk_condition and outside_dryer and outside_temp <= inside_temp + 2:
         values["reason"] = "reduce mold risk with cooler, dryer air"
         return True, values
 
